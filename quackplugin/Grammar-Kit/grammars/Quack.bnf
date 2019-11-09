@@ -1,0 +1,120 @@
+
+{
+  extends(".*rExpr")=rExpr
+  extends(".*lExpr")=lExpr
+
+  tokens=[
+    CLASS = 'class'
+    DEF = 'def'
+    EXTENDS = 'extends'
+    IF =   'if'
+    ELIF = 'elif'
+    ELSE = 'else'
+    WHILE = 'while'
+    RETURN = 'return'
+    TYPECASE = 'typecase'
+    AND = 'and'
+    OR = 'or'
+    NOT = 'not'
+    GETS = '='
+    PLUS =  '+'
+    MINUS =  '-'
+    TIMES =  '*'
+    DIVIDE =   '/'
+    EQUALS =  '=='
+    ATMOST =  '>='
+    LESS =  '<'
+    ATLEAST =  '<='
+    MORE =  '>'
+    LBRACE =  '{'
+    RBRACE =  '}'
+    LPAREN =  '('
+    RPAREN =  ')'
+    COMMA =  ','
+    SEMICOLON =  ';'
+    DOT =  '.'
+    COLON =  ':'
+
+    space="regexp:\s+"
+    id="regexp:\w*"
+    string="regexp:('([^'\\]|\\.)*'|\"([^\"\\]|\\\"|\\\'|\\)*\")"
+    number="regexp:\d+(\.\d*)?"
+    line_comment="regexp://.*"
+    block_comment="regexp:\/\*(\*(?!\/)|[^*])*\*\/"
+  ]
+}
+
+prog ::= classSigBody * stmt * <<eof>>
+
+classSigBody ::= classSignature classBody
+
+classSignature ::= CLASS id LPAREN formalArgs RPAREN ( EXTENDS id) ?
+
+formalArgs ::= (id COLON id (COMMA id COLON id) * ) ?
+
+classBody ::= LBRACE stmt * method * RBRACE
+
+method    ::= DEF id LPAREN formalArgs RPAREN ( COLON id ) ?  LBRACE stmt *   RBRACE
+
+stmt ::= if_stmt
+       | while_stmt
+       | assign_stmt
+       | simple_stmt
+       | return_stmt
+       | type_case_stmt //{pin =1 recoverWhile="stmt_recover"}
+
+//stmt_recover ::= !(SEMICOLON | RBRACE)
+
+if_stmt ::= IF rExpr LBRACE stmt *   RBRACE (ELIF rExpr LBRACE stmt *   RBRACE ) * (ELSE LBRACE stmt *   RBRACE) ? {pin = "LBRACE"}
+
+while_stmt ::= WHILE rExpr LBRACE stmt *   RBRACE {pin = 3}
+
+assign_stmt ::= lExpr (COLON id) ?  GETS rExpr SEMICOLON {pin = "GETS"}
+
+simple_stmt ::= rExpr SEMICOLON
+
+return_stmt ::= RETURN rExpr ? SEMICOLON {pin = 1}
+
+type_case_stmt ::= TYPECASE rExpr LBRACE (id COLON id LBRACE stmt *   RBRACE ) * RBRACE {pin = 3}
+
+lExpr ::= left_rExpr | id
+
+rExpr ::= actual_args_rExpr
+      | paren_rExpr
+      | left_rExpr
+      | plus_rExpr
+      | minus_rExpr
+      | times_rExpr
+      | div_rExpr
+      | neg_rExpr
+      | equals_rExpr
+      | at_most_rExpr
+      | less_rExpr
+      | at_least_rExpr
+      | more_rExpr
+      | and_rExpr
+      | or_rExpr
+      | not_rExpr
+      | actual_rExpr
+      | lit_rExpr
+
+left_rExpr ::= rExpr DOT id
+plus_rExpr ::= rExpr PLUS rExpr
+minus_rExpr ::= rExpr MINUS rExpr
+times_rExpr ::= rExpr TIMES rExpr
+div_rExpr ::= rExpr DIVIDE rExpr
+neg_rExpr ::= MINUS rExpr
+paren_rExpr ::= LPAREN rExpr RPAREN
+equals_rExpr ::= rExpr EQUALS rExpr
+at_most_rExpr ::= rExpr ATLEAST rExpr
+less_rExpr ::= rExpr LESS rExpr
+at_least_rExpr ::= rExpr ATMOST rExpr
+more_rExpr ::= rExpr MORE rExpr
+and_rExpr ::= rExpr AND rExpr
+or_rExpr ::= rExpr OR rExpr
+not_rExpr ::= NOT rExpr
+actual_args_rExpr ::=  rExpr DOT  actual_rExpr
+actual_rExpr ::=  id LPAREN act_rExpr RPAREN
+act_rExpr ::=  args_rExpr ?
+args_rExpr ::= rExpr (COMMA rExpr)* {pin= 1}
+lit_rExpr ::= string | number | id

@@ -1,0 +1,44 @@
+FILE
+  ASTWrapperPsiElement(LIST)
+    PsiElement(()('(')
+    ASTWrapperPsiElement(ITEM)
+      PsiElement(number)('1')
+    PsiElement(,)(',')
+    PsiWhiteSpace(' ')
+    ASTWrapperPsiElement(ITEM)
+      PsiElement(number)('2')
+    PsiElement(,)(',')
+    PsiWhiteSpace(' ')
+    ASTWrapperPsiElement(ITEM)
+      PsiElement(number)('3')
+    PsiElement())(')')
+  PsiElement(;)(';')
+  PsiErrorElement:'(' expected, got ';'
+    <empty list>
+  PsiWhiteSpace('\n')
+  PsiElement(;)(';')
+  PsiWhiteSpace('\n')
+  ASTWrapperPsiElement(LIST)
+    PsiElement(()('(')
+    PsiErrorElement:number expected, got '-'
+      PsiElement(BAD_CHARACTER)('-')
+    PsiElement(,)(',')
+    PsiErrorElement:number expected, got ','
+      <empty list>
+    PsiWhiteSpace(' ')
+    PsiElement(,)(',')
+    PsiWhiteSpace(' ')
+    ASTWrapperPsiElement(ITEM)
+      PsiElement(number)('3')
+    PsiElement(,)(',')
+    PsiErrorElement:number expected, got ')'
+      <empty list>
+    PsiWhiteSpace(' ')
+    PsiElement())(')')
+  PsiElement(;)(';')
+  PsiWhiteSpace('\n')
+  ASTWrapperPsiElement(LIST)
+    PsiElement(()('(')
+    ASTWrapperPsiElement(ITEM)
+      PsiElement(number)('1')
+    PsiElement())(')')

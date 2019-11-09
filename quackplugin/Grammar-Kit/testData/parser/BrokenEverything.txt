@@ -1,0 +1,60 @@
+BnfFile:BrokenEverything.bnf
+  PsiElement(id)('dfg')
+  PsiErrorElement:'::=' expected, got '{'
+    <empty list>
+  PsiWhiteSpace('\n')
+  BNF_ATTRS
+    PsiElement({)('{')
+    PsiWhiteSpace('\n')
+    BNF_ATTR:a
+      PsiElement(id)('a')
+      PsiWhiteSpace(' ')
+      PsiElement(=)('=')
+      PsiErrorElement:<literal expression>, '[' or id expected, got '='
+        <empty list>
+      PsiWhiteSpace(' ')
+      PsiElement(=)('=')
+    PsiWhiteSpace('\n')
+    BNF_ATTR:a
+      PsiElement(id)('a')
+      PsiWhiteSpace(' ')
+      PsiElement(=)('=')
+    PsiErrorElement:';' or id expected, got 'a'
+      <empty list>
+    PsiWhiteSpace('\n\n')
+    BNF_ATTR:a
+      PsiElement(id)('a')
+      PsiWhiteSpace(' ')
+      PsiElement(=)('=')
+      PsiWhiteSpace(' ')
+      BNF_REFERENCE_OR_TOKEN: sdfdss
+        PsiElement(id)('sdfdss')
+    PsiWhiteSpace('\n')
+    BNF_ATTR:a
+      PsiElement(id)('a')
+      BNF_ATTR_PATTERN
+        PsiElement(()('(')
+        BNF_STRING_LITERAL_EXPRESSION: ""
+          PsiElement(string)('""')
+        PsiElement())(')')
+      PsiErrorElement:'=' expected, got '}'
+        <empty list>
+    PsiWhiteSpace('\n')
+    PsiElement(})('}')
+  PsiWhiteSpace('\n\n')
+  PsiErrorElement:'a' unexpected
+    PsiElement(id)('a')
+  PsiWhiteSpace(' ')
+  PsiElement(BAD_CHARACTER)(':')
+  PsiElement(BAD_CHARACTER)(':')
+  PsiWhiteSpace('\n')
+  BNF_RULE:a
+    PsiElement(id)('a')
+    PsiWhiteSpace(' ')
+    PsiElement(::=)('::=')
+    PsiWhiteSpace(' ')
+    BNF_PAREN_EXPRESSION: {x}
+      PsiElement({)('{')
+      BNF_REFERENCE_OR_TOKEN: x
+        PsiElement(id)('x')
+      PsiElement(})('}')

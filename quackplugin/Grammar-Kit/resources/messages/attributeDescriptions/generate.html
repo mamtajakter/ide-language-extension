@@ -1,0 +1,104 @@
+<html>
+<body>
+A list of generator options. Supersedes global generateXXX attributes.
+<p>
+
+<table border=1>
+  <tr>
+    <th>Option</th>
+    <th>Possible Values</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>psi</td>
+    <td><b>yes</b>, no</td>
+    <td>PSI: generate PSI classes</td>
+  </tr>
+  <tr>
+    <td>psi-classes-map</td>
+    <td>yes, <b>no</b></td>
+    <td>PSI: generate IElementType to node class map</td>
+  </tr>
+  <tr>
+    <td>psi-factory</td>
+    <td><b>yes</b>, no</td>
+    <td>PSI: generate PsiElement for ASTNode node factory</td>
+  </tr>
+  <tr>
+    <td>visitor</td>
+    <td><b>yes</b>, no</td>
+    <td>PSI: generate visitor for PSI classes</td>
+  </tr>
+  <tr>
+    <td>visitor-value</td>
+    <td><b>void</b>, name of type parameter</td>
+    <td>PSI: generate visitor with generic argument</td>
+  </tr>
+  <tr>
+    <td>elements</td>
+    <td><b>yes</b>, no</td>
+    <td>Types: generate composite element type constants</td>
+  </tr>
+  <tr>
+    <td>element-case</td>
+    <td>lower | <b>upper</b> | as-is</td>
+    <td>Types: composite element type constants case option</td>
+  </tr>
+  <tr>
+    <td>tokens</td>
+    <td><b>yes</b>, no</td>
+    <td>Types: generate token constants</td>
+  </tr>
+  <tr>
+    <td>token-case</td>
+    <td>lower | <b>upper</b> | as-is</td>
+    <td>Types: token type constants case option</td>
+  </tr>
+  <tr>
+    <td>token-sets</td>
+    <td>yes, <b>no</b></td>
+    <td>Types: generate token sets from top-level choice rules</td>
+  </tr>
+  <tr>
+    <td>exact-types</td>
+    <td>all | <b>no</b> | tokens, elements</td>
+    <td>Token and element types constants exact type</td>
+  </tr>
+  <tr>
+    <td>token-accessors</td>
+    <td>yes, <b>no</b></td>
+    <td>PSI: generate token getters</td>
+  </tr>
+  <tr>
+    <td>names</td>
+    <td><b>short</b>, long, classic</td>
+    <td>Parser: local variables style</td>
+  </tr>
+  <tr>
+    <td>first-check</td>
+    <td>positive number, <b>2</b></td>
+    <td>Parser: generate FIRST-based look-ahead optimization</td>
+  </tr>
+  <tr>
+    <td>java</td>
+    <td><b>6</b>, 8</td>
+    <td>Parser: use λ-s or other language constructs supported in selected version</td>
+  </tr>
+  <tr>
+    <td>...</td>
+    <td>...</td>
+    <td>...</td>
+  </tr>
+</table>
+
+<h2>Examples:</h2>
+<pre><code>
+  {
+    // turn off PSI classes generation and token constants
+    // .. and prefer classic names
+    generate=[psi="no" tokens="no" names="short"]
+  }
+</code></pre>
+
+</body>
+</html>
